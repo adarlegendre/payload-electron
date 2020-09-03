@@ -5,17 +5,11 @@ import 'package:aea_payload/model/hover_extensions.dart';
 import 'package:aea_payload/pages/home.dart';
 import 'package:aea_payload/pages/sign_in.dart';
 import 'package:flutter/material.dart';
-import 'package:horizontal_data_table/horizontal_data_table.dart';
+// import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:responsive_table/responsive_table.dart';
 
 class TicketsPage extends StatefulWidget {
   static const String route = '/tickets/';
-
-  final int index;
-
-  TicketsPage({
-    this.index,
-  });
 
   @override
   _TicketsPageState createState() => _TicketsPageState();
@@ -154,6 +148,10 @@ class _TicketsPageState extends State<TicketsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final TicketsArguments args = ModalRoute.of(context).settings.arguments;
+
+    print("The Birdge index is ${args.bridgeIndex}.");
+
     return new Scaffold(
       appBar: AppBar(
         //title: Text(widget.title),
@@ -331,4 +329,9 @@ class _TicketsPageState extends State<TicketsPage> {
           ])),
     );
   }
+}
+
+class TicketsArguments {
+  final int bridgeIndex;
+  TicketsArguments(this.bridgeIndex);
 }

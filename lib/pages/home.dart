@@ -76,7 +76,11 @@ class _HomePageState extends State<HomePage> {
               return new InkWell(
                 onTap: () {
                   // print("Container $index");
-                  Navigator.of(context).pushNamed(TicketsPage.route);
+                  Navigator.pushNamed(
+                    context,
+                    TicketsPage.route,
+                    arguments: TicketsArguments(index),
+                  );
                   return;
                 },
                 child: new Tooltip(
