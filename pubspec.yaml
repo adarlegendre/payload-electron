@@ -32,6 +32,9 @@ dependencies:
   # https://pub.dev/packages/shared_preferences
   shared_preferences: ^0.5.10
 
+  # https://pub.dev/packages/responsive_grid
+  responsive_grid: ^1.2.1+1
+
   # https://pub.dev/packages/horizontal_data_table
   horizontal_data_table: ^1.0.6+2
 

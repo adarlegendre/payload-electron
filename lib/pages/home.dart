@@ -3,6 +3,7 @@ import 'package:aea_payload/model/hover_extensions.dart';
 import 'package:aea_payload/pages/sign_in.dart';
 import 'package:aea_payload/pages/tickets.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_grid/responsive_grid.dart';
 
 class HomePage extends StatefulWidget {
   static const String route = '/';
@@ -24,6 +25,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<int> valIn = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  List<int> valOut = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -66,11 +80,12 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+      /*
       body: Center(
         child: new GridView.builder(
             itemCount: 16, // bridge_list.length,
             gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
+              crossAxisCount: 7,
             ),
             itemBuilder: (BuildContext context, int index) {
               return new InkWell(
@@ -216,6 +231,171 @@ class _HomePageState extends State<HomePage> {
                 ),
               ).showCursorOnHover;
             }),
+      ),
+      */
+      body: new Container(
+        /*
+        padding: const EdgeInsets.only(
+          top: 10,
+          bottom: 10,
+        ),
+        */
+        child: new ResponsiveGridList(
+            desiredItemWidth: 200,
+            minSpacing: 0,
+            children: [
+              for (int o = 1; o <= 16; o++) ...[
+                o,
+              ]
+            ].map((i) {
+              return InkWell(
+                onTap: () {
+                  // print("Container $index");
+                  Navigator.pushNamed(
+                    context,
+                    TicketsPage.route,
+                    arguments: TicketsArguments(i),
+                  );
+                  return;
+                },
+                child: new Tooltip(
+                  message: "Weighbridge $i",
+                  child: Container(
+                    height: 200,
+                    alignment: Alignment(0, 0),
+                    // color: Colors.cyan,
+                    // child: Text(i.toString()),
+                    // margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(5),
+                    child: new Card(
+                      elevation: 8,
+                      child: new Container(
+                        child: new Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            new Align(
+                              alignment: Alignment.topLeft,
+                              child: new Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(),
+                                child: new Text(
+                                  "$i",
+                                  style: new TextStyle(
+                                    fontSize: 25,
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            new Container(
+                              width: 45,
+                              height: 45,
+                              child: Icon(
+                                Icons.dns,
+                                size: 45,
+                              ),
+                            ),
+                            new Expanded(
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  new Container(
+                                    child: new Row(
+                                      children: [
+                                        new Container(
+                                          width: 45,
+                                          height: 30,
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            "IN",
+                                            style: new TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        new Container(
+                                          width: 100,
+                                          height: 30,
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "${valIn[i - 1]} KG",
+                                            style: new TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        new Container(
+                                          width: 45,
+                                          height: 30,
+                                          alignment: Alignment.center,
+                                          child: Icon(
+                                            Icons.gps_fixed,
+                                            size: 20,
+                                            color: Colors.lightGreen[800],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  new SizedBox(
+                                    height: 2,
+                                  ),
+                                  new Container(
+                                    child: new Row(
+                                      children: [
+                                        new Container(
+                                          width: 45,
+                                          height: 30,
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            "OUT",
+                                            style: new TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        new Container(
+                                          width: 100,
+                                          height: 30,
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "${valOut[i - 1]} KG",
+                                            style: new TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        new Container(
+                                          width: 45,
+                                          height: 30,
+                                          alignment: Alignment.center,
+                                          child: Icon(
+                                            Icons.gps_not_fixed,
+                                            size: 20,
+                                            color: Colors.orange[800],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ).showCursorOnHover,
+                ),
+              );
+            }).toList()),
       ),
     );
   }
