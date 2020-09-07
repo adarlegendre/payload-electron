@@ -21,8 +21,7 @@ class _TicketsPageState extends State<TicketsPage> {
   @override
   Widget build(BuildContext context) {
     final TicketsArguments args = ModalRoute.of(context).settings.arguments;
-
-    print("The Birdge index is ${args.bridgeIndex}.");
+    var indx = (args.bridgeIndex != null) ? args.bridgeIndex : 1;
 
     return new Scaffold(
       appBar: AppBar(
@@ -59,31 +58,45 @@ class _TicketsPageState extends State<TicketsPage> {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: PaginatedDataTable(
-            header: new Text("Data Table Header"),
-            columnSpacing: 10.0,
-            columns: [
-              new DataColumn(
-                label: new Text("col#1"),
+        child: Scrollbar(
+          child: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.all(20.0),
+              child: Card(
+                elevation: 8.0,
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    PaginatedDataTable(
+                      header: new Text("Tickets: Weighbridge $indx"),
+                      columnSpacing: 56.0,
+                      horizontalMargin: 24,
+                      columns: [
+                        new DataColumn(
+                          label: new Text("col#1"),
+                        ),
+                        new DataColumn(
+                          label: new Text("col#2"),
+                        ),
+                        new DataColumn(
+                          label: new Text("col#3"),
+                        ),
+                        new DataColumn(
+                          label: new Text("col#4"),
+                        ),
+                      ],
+                      source: dts,
+                      onRowsPerPageChanged: (r) {
+                        setState(() {
+                          _rowPerPage = r;
+                        });
+                      },
+                      rowsPerPage: _rowPerPage,
+                    ),
+                  ],
+                ),
               ),
-              new DataColumn(
-                label: new Text("col#2"),
-              ),
-              new DataColumn(
-                label: new Text("col#3"),
-              ),
-              new DataColumn(
-                label: new Text("col#4"),
-              ),
-            ],
-            source: dts,
-            onRowsPerPageChanged: (r) {
-              setState(() {
-                _rowPerPage = r;
-              });
-            },
-            rowsPerPage: _rowPerPage,
+            ),
           ),
         ),
       ),
