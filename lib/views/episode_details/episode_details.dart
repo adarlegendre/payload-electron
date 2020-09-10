@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider_architecture/provider_architecture.dart';
 // import 'package:provider_architecture/viewmodel_provider.dart';
-import 'package:stacked/stacked.dart';
+// import 'package:stacked/stacked.dart';
 import 'package:aea_payload/viewmodels/episode_details_view_model.dart';
 
 class EpisodeDetails extends StatelessWidget {
@@ -10,7 +11,8 @@ class EpisodeDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<EpisodeDetailsViewModel>.withConsumer(
-      viewModel: EpisodeDetailsViewModel(),
+      viewModelBuilder: () => EpisodeDetailsViewModel(),
+      // viewModel: EpisodeDetailsViewModel(),
       onModelReady: (model) => model.getEpisodeData(id),
       builder: (context, model, child) => Center(
         child: Column(
